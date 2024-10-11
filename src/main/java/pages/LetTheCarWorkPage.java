@@ -17,7 +17,7 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputLocation;
     @FindBy(id = "make")
     WebElement inputManufacture;
-    @FindBy(id = "madel")
+    @FindBy(id = "model")
     WebElement inputModel;
     @FindBy(id = "year")
     WebElement inputYear;
@@ -33,10 +33,27 @@ public class LetTheCarWorkPage extends BasePage{
     WebElement inputPrice;
     @FindBy(id = "about")
     WebElement inputAbout;
+    @FindBy(id = "photos")
+    WebElement inputPhoto;
+
 
     public void typeAddNewCarForm(CarDto car) {
         inputLocation.sendKeys(car.getCity());
-        pause(2);
-        driver.findElement(By.xpath("//div[@class='pac-item']"));
+//        pause(2);
+//        driver.findElement(By.xpath("//div[@class='pac-item']")).click();
+        clickWait(By.xpath("//div[@class='pac-item']"),3);
+        inputManufacture.sendKeys(car.getManufacture());
+        inputModel.sendKeys(car.getModel());
+        inputYear.sendKeys(car.getYear());
+
+        inputFuel.click();
+        clickWait(By.xpath(car.getFuel()),3);
+
+        inputSeats.sendKeys(car.getSeats()+"");
+        inputClass.sendKeys(car.getCarClass());
+        inputSerialNumber.sendKeys(car.getSerialNumber());
+        inputPrice.sendKeys(Double.toString(car.getPricePerDay()));
+        inputAbout.sendKeys(car.getAbout());
+        inputPhoto.sendKeys("C:\\QA44_auto\\QA_44_ILCarro-master\\src\\test\\resources\\"+car.getImage());
     }
 }

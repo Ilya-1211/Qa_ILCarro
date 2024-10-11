@@ -19,5 +19,6 @@ public class CarDto {
     private double pricePerDay;
     private String about;
     private String city;
+    private String image;
 
 }
