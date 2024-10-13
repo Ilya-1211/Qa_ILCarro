@@ -2,10 +2,12 @@ package tests;
 
 import dto.CarDto;
 import manager.ApplicationManager;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LetTheCarWorkPage;
+import pages.LoginPage;
 import utils.Fuel;
 import utils.HeaderMenuItem;
 
@@ -16,9 +18,14 @@ import static pages.BasePage.clickButtonsOnHeader;
 public class AddNewCarTest extends ApplicationManager {
 
     LetTheCarWorkPage letTheCarWorkPage;
+    LoginPage loginPage;
+
     @BeforeMethod
     public void startAddCar(){
         new HomePage(getDriver());
+        loginPage=clickButtonsOnHeader(HeaderMenuItem.LOGIN);
+        loginPage.typeLoginForm("mio0931211@gmail.com","Ilya1983!")
+                .clickBtnYalla();
         letTheCarWorkPage = clickButtonsOnHeader(HeaderMenuItem.LET_THE_CAR_WORK);
     }
 
@@ -38,6 +45,9 @@ public class AddNewCarTest extends ApplicationManager {
                 .image("backiee-61239.jpg")
                 .build();
         letTheCarWorkPage.typeAddNewCarForm(car);
+        letTheCarWorkPage.clickBtnSubmit();
+        Assert.assertTrue(letTheCarWorkPage.validatePopMessage(car.getManufacture()+" "+
+                car.getModel()+" added successful"));
 
     }
 
